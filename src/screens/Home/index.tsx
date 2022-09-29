@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Task, TaskProps } from "../../components/Task";
+import { Task } from "../../components/Task";
 import { Plus } from "phosphor-react-native";
+import { SnackBarComponent } from "../../components/SnackBarComponent";
 
 import { styles } from "./styles";
 import {
@@ -25,6 +26,19 @@ export interface TaskObj {
 export function Home() {
   const [task, setTask] = useState<string>("");
   const [listTasks, setListTasks] = useState<TaskObj[]>([]);
+
+  const [visible, setVisible] = useState<boolean>(false);
+  const [snackText, setSnackText] = useState<string>("");
+
+  //SnackBar functions
+  const onToggleSnackbar = (text: string) => {
+    setVisible(!visible);
+    setSnackText(text);
+  };
+
+  const onDismissSnackBar = () => {
+    setVisible(false);
+  };
 
   //Read data from firebase
   useEffect(() => {
@@ -54,6 +68,7 @@ export function Home() {
       description: task,
       completed: false,
     });
+    onToggleSnackbar("Task criada com sucesso!");
   };
 
   //Update data
@@ -66,6 +81,7 @@ export function Home() {
   //Delete data
   const handleDeleteTask = async (id: string) => {
     await deleteDoc(doc(db, "Tasks", id));
+    onToggleSnackbar("Task deletada com sucesso!");
   };
 
   return (
@@ -85,7 +101,6 @@ export function Home() {
           <Plus color="#fff" size={12} weight="bold" />
         </TouchableOpacity>
       </View>
-
       {listTasks.map((task) => {
         return (
           <Task
@@ -96,15 +111,17 @@ export function Home() {
           />
         );
       })}
+      <SnackBarComponent
+        text={snackText}
+        visible={visible}
+        onDismissSnackBar={onDismissSnackBar}
+      />
     </SafeAreaView>
   );
 }
 
 /*
   Próximos passos:
-  - Habilitar um modal que permita editar a description da task
-  - Utilizar um component de alguma biblioteca que avise que a task foi criada/deletada
   - Estudar sobre context para aplicar o tema claro/escuro
   - Fazer autenticação de usuário e mostrar o username e imagem do perfil (qualquer login)
-  - CRIAR O ARQUIVO ENV ANTES DE SUBIR NO GITHUB
 */
