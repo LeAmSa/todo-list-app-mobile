@@ -46,9 +46,6 @@ export const styles = StyleSheet.create({
     textDecorationLine: "line-through",
     color: "#fffa",
   },
-  btnsContainer: {
-    flexDirection: "row",
-  },
   btnEdit: {
     marginRight: 8,
   },
