@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { PencilSimple, TrashSimple, Check } from "phosphor-react-native";
+import { TrashSimple, Check } from "phosphor-react-native";
 
 import { styles } from "./styles";
 import { TaskObj } from "../../screens/Home";
@@ -41,15 +41,9 @@ export function Task({
         {task.description}
       </Text>
 
-      <View style={styles.btnsContainer}>
-        <TouchableOpacity style={styles.btnEdit}>
-          <PencilSimple size={20} color="#f7f3f3" />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handleDeleteTask(task.id)}>
-          <TrashSimple size={20} color="#f1524a" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={() => handleDeleteTask(task.id)}>
+        <TrashSimple size={20} color="#f1524a" />
+      </TouchableOpacity>
     </View>
   );
 }
