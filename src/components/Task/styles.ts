@@ -22,10 +22,13 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  completedContainer: {
+    backgroundColor: "#333452",
+  },
   btnCheck: {
     width: 20,
     height: 20,
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 50,
     borderStyle: "solid",
@@ -33,7 +36,14 @@ export const styles = StyleSheet.create({
     borderColor: "#808080",
     backgroundColor: "#fff",
   },
-  title: {
+  btnCompleted: {
+    backgroundColor: "#7FFF00",
+  },
+  description: {
+    color: "#fff",
+  },
+  completedDescription: {
+    textDecorationLine: "line-through",
     color: "#fffa",
   },
   btnsContainer: {
@@ -43,5 +53,3 @@ export const styles = StyleSheet.create({
     marginRight: 8,
   },
 });
-
-//#7FFF00
