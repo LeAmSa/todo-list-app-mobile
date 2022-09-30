@@ -31,4 +31,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#3C79B0",
   },
+  contentList: {
+    paddingTop: 16,
+    paddingBottom: 64,
+  },
 });
