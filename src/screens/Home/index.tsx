@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, TouchableOpacity } from "react-native";
+import { View, TextInput, TouchableOpacity, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Task } from "../../components/Task";
 import { Plus } from "phosphor-react-native";
@@ -101,16 +101,21 @@ export function Home() {
           <Plus color="#fff" size={12} weight="bold" />
         </TouchableOpacity>
       </View>
-      {listTasks.map((task) => {
-        return (
+
+      <FlatList
+        data={listTasks}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <Task
-            key={task.id}
-            task={task}
-            handleToggleComplete={() => handleToggleComplete(task)}
-            handleDeleteTask={() => handleDeleteTask(task.id)}
+            task={item}
+            handleToggleComplete={() => handleToggleComplete(item)}
+            handleDeleteTask={() => handleDeleteTask(item.id)}
           />
-        );
-      })}
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentList}
+      />
+
       <SnackBarComponent
         text={snackText}
         visible={visible}
