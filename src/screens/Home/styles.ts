@@ -1,23 +1,23 @@
 import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  switchThemeContainer: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#31315C",
-    padding: 30,
+    justifyContent: "center",
+    marginBottom: 20,
   },
   addTaskContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   textInput: {
     width: "90%",
-    backgroundColor: "#272851",
-    color: "#fff",
     paddingVertical: 8,
     paddingLeft: 16,
     marginRight: 10,
@@ -36,3 +36,11 @@ export const styles = StyleSheet.create({
     paddingBottom: 64,
   },
 });
+
+//usando o styled component
+export const Container = styled.SafeAreaView`
+  flex: 1;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.background};
+  padding: 30px 30px 30px 30px;
+`;
