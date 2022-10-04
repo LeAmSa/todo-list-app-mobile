@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { View, TextInput, TouchableOpacity, FlatList } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  Switch,
+} from "react-native";
 import { Task } from "../../components/Task";
-import { Plus } from "phosphor-react-native";
+import { Plus, Moon, Sun } from "phosphor-react-native";
 import { SnackBarComponent } from "../../components/SnackBarComponent";
 
-import { styles } from "./styles";
+import { Container, styles } from "./styles";
 import {
   collection,
   onSnapshot,
@@ -16,6 +21,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { useTheme } from "styled-components/native";
+
+import { ThemeContext, ThemeType } from "../../themes/Theme";
 
 export interface TaskObj {
   id: string;
@@ -30,6 +38,9 @@ export function Home() {
   const [visible, setVisible] = useState<boolean>(false);
   const [snackText, setSnackText] = useState<string>("");
 
+  //acessando o objeto que contém as cores do styled components
+  const { colors } = useTheme();
+
   //SnackBar functions
   const onToggleSnackbar = (text: string) => {
     setVisible(!visible);
@@ -39,6 +50,11 @@ export function Home() {
   const onDismissSnackBar = () => {
     setVisible(false);
   };
+
+  //Switch theme functions
+  const { toggleTheme, theme } = useContext(ThemeContext);
+
+  const isDarkMode = theme === ThemeType.dark;
 
   //Read data from firebase
   useEffect(() => {
@@ -85,12 +101,38 @@ export function Home() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Container>
+      <View style={styles.switchThemeContainer}>
+        <Moon
+          style={{ transform: [{ translateX: 6 }] }}
+          size={18}
+          color={isDarkMode ? "#fff" : "#121212"}
+        />
+        <Switch
+          style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
+          value={!isDarkMode}
+          onValueChange={toggleTheme}
+          trackColor={{ false: "#12121258", true: "#e9c16b" }}
+          thumbColor={isDarkMode ? "#fff" : "#e6af39"}
+        />
+        <Sun
+          style={{ transform: [{ translateX: -6 }] }}
+          size={18}
+          color="#e6af39"
+        />
+      </View>
+
       <View style={styles.addTaskContainer}>
         <TextInput
-          style={styles.textInput}
+          style={[
+            styles.textInput,
+            {
+              backgroundColor: colors.inputBackground,
+              color: colors.onBackground,
+            },
+          ]}
           placeholder="Adicione uma tarefa"
-          placeholderTextColor="#ffffff78"
+          placeholderTextColor={colors.inputPlaceholder}
           onChangeText={(newTask) => setTask(newTask)}
           defaultValue={task}
         />
@@ -121,12 +163,20 @@ export function Home() {
         visible={visible}
         onDismissSnackBar={onDismissSnackBar}
       />
-    </SafeAreaView>
+    </Container>
   );
 }
 
-/*
-  Próximos passos:
-  - Estudar sobre context para aplicar o tema claro/escuro
-  - Fazer autenticação de usuário e mostrar o username e imagem do perfil (qualquer login)
-*/
+// Próximos passos:
+// - Estudar sobre context para aplicar o tema claro/escuro
+// - Fazer autenticação de usuário e mostrar o username e imagem do perfil (qualquer login)
+
+// TEMA LIGHT:
+// - Home backgroundColor: #fff
+// - Input backgroundColor: #d5e5f1
+// -Input text color: #121212
+// - Task description color: #9C9AA5
+// - Task container backgroundColor: #FFFFFF
+//#cecece
+
+//Continuar vídeo no min 30:29
