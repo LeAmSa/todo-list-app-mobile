@@ -7,23 +7,18 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#43446A",
     padding: 12,
     borderRadius: 8,
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "#808080",
-    shadowColor: "#000",
+    shadowColor: "#808080",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
-  },
-  completedContainer: {
-    backgroundColor: "#333452",
+    elevation: 2,
   },
   btnCheck: {
     width: 20,
@@ -38,9 +33,6 @@ export const styles = StyleSheet.create({
   },
   btnCompleted: {
     backgroundColor: "#7FFF00",
-  },
-  description: {
-    color: "#fff",
   },
   completedDescription: {
     textDecorationLine: "line-through",
