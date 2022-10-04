@@ -3,6 +3,7 @@ import { TrashSimple, Check } from "phosphor-react-native";
 
 import { styles } from "./styles";
 import { TaskObj } from "../../screens/Home";
+import { useTheme } from "styled-components/native";
 
 export interface TaskProps {
   task: TaskObj;
@@ -15,11 +16,16 @@ export function Task({
   handleToggleComplete,
   handleDeleteTask,
 }: TaskProps) {
+  const { colors } = useTheme();
+
   return (
     <View
       style={[
         styles.container,
-        task.completed ? styles.completedContainer : styles.container,
+        { backgroundColor: colors.taskBackground, borderColor: colors.border },
+        task.completed
+          ? { backgroundColor: colors.completedBgTask }
+          : styles.container,
       ]}
     >
       <TouchableOpacity
@@ -34,8 +40,9 @@ export function Task({
 
       <Text
         style={[
-          styles.description,
-          task.completed ? styles.completedDescription : styles.description,
+          task.completed
+            ? styles.completedDescription
+            : { color: colors.onBackground },
         ]}
       >
         {task.description}
